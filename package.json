@@ -1,0 +1,23 @@
+{
+  "name": "covalent-rsk-sql-stream-demo-api",
+  "version": "0.0.0",
+  "description": "A demo API that establishes a connection to a Covalent database to fetch RSK data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bguiz/covalent-rsk-sql-stream-demo-api.git"
+  },
+  "keywords": [
+    "covalent",
+    "rsk"
+  ],
+  "author": "bguiz",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/bguiz/covalent-rsk-sql-stream-demo-api/issues"
+  },
+  "homepage": "https://github.com/bguiz/covalent-rsk-sql-stream-demo-api#readme"
+}
