@@ -23,7 +23,7 @@ npm run start
 To hit the API endpoint already present:
 
 ```shell
-curl http://localhost:3000/v1/latest-tx
+curl http://localhost:3000/v1/latest/tx
 ```
 
 ```json
@@ -33,6 +33,22 @@ curl http://localhost:3000/v1/latest-tx
     "txn_hash": "0x15679513d738d0ebdde3e8fff5f37551d1f5466a4fe933f4ff2dd0a0c8878b0f",
     "from_address": "0x986a2fca9eda0e06fbf7839b89bfc006ee2a23dd",
     "to_address": "0xefc78fc7d48b64958315949279ba181c2114abbd"
+  }
+]
+```
+
+```shell
+curl http://localhost:3000/v1/latest/erc20-transfer/RIF | jq
+```
+
+[
+  {
+    "block_signed_at": "2021-10-08T04:18:15.000Z",
+    "block_height": "3750578",
+    "tx_hash": "0x07a15db0e1b2946cd5e6c00a040c406dd9e432c49a9a298d831758eeea884111",
+    "from_address": "0x4fc69677df24aadfc775eeb1242097800453746f",
+    "to_address": "0x818c0a92aae155e93419b5a7323e8e8ae649f287",
+    "amount": 5831.184365932506
   }
 ]
 ```
@@ -59,6 +75,11 @@ Tips:
   but you are not able to extract the expected information from it,
   it is likely that Covalent does not have its corresponding ABI.
   You need to [submit the ABI](https://covalenthq.typeform.com/to/SCarT0yg?utm_source=bguiz).
+
+## Help, I'm stuck!
+
+Join the [RSK community chat](https://developers.rsk.co/slack)
+and ask questions!
 
 ## Licence
 
