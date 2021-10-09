@@ -52,7 +52,6 @@ router.get('/latest/erc20-transfer/:symbol', function (req, res) {
     return res.status(404).json({ error: 'unknown erc20', details: symbol });
   }
   const { address, decimals } = tokenData;
-  const addressSqlBytes = '\\x' + address.substring(2);
   const sqlStatement =
     `SELECT
       e.block_signed_at,
@@ -62,13 +61,20 @@ router.get('/latest/erc20-transfer/:symbol', function (req, res) {
       '0x' || encode(extract_address(e.topics[3]), 'hex') AS to_address,
       (cast(abi_field(e.data, 0) as numeric) / (10^${decimals})) AS amount
     FROM chain_rsk_mainnet.block_log_events e
-    WHERE e.topics @> ARRAY['${getSqlBytesForHexadecimalString(erc20TopicIdForTransfer)}'::bytea]
-      AND e.topics[1] = '${getSqlBytesForHexadecimalString(erc20TopicIdForTransfer)}'
-      AND e.sender = '${getSqlBytesForHexadecimalString(address)}'
+    WHERE e.topics @> ARRAY[$1::bytea]
+      AND e.topics[1] = $1
+      AND e.sender = $2
     ORDER BY e.block_signed_at DESC
     LIMIT 1;`;
   console.log(sqlStatement);
-  dbPool.query(sqlStatement, (error, results) => {
+  const sqlQuery = {
+    text: sqlStatement,
+    values: [
+      getSqlBytesForHexadecimalString(erc20TopicIdForTransfer),
+      getSqlBytesForHexadecimalString(address),
+    ],
+  };
+  dbPool.query(sqlQuery, (error, results) => {
     if (error) {
       throw error;
     }
