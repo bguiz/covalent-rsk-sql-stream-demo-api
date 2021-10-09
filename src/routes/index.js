@@ -62,8 +62,9 @@ router.get('/latest/erc20-transfer/:symbol', function (req, res) {
       '0x' || encode(extract_address(e.topics[3]), 'hex') AS to_address,
       (cast(abi_field(e.data, 0) as numeric) / (10^${decimals})) AS amount
     FROM chain_rsk_mainnet.block_log_events e
-    WHERE e.sender = '${getSqlBytesForHexadecimalString(address)}' AND
-      e.topics[1] = '${getSqlBytesForHexadecimalString(erc20TopicIdForTransfer)}'
+    WHERE e.topics @> ARRAY['${getSqlBytesForHexadecimalString(erc20TopicIdForTransfer)}'::bytea]
+      AND e.topics[1] = '${getSqlBytesForHexadecimalString(erc20TopicIdForTransfer)}'
+      AND e.sender = '${getSqlBytesForHexadecimalString(address)}'
     ORDER BY e.block_signed_at DESC
     LIMIT 1;`;
   console.log(sqlStatement);
