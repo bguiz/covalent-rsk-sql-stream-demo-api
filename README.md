@@ -41,6 +41,7 @@ curl http://localhost:3000/v1/latest/tx
 curl http://localhost:3000/v1/latest/erc20-transfer/RIF | jq
 ```
 
+```json
 [
   {
     "block_signed_at": "2021-10-08T04:18:15.000Z",
