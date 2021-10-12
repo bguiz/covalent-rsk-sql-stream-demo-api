@@ -40,7 +40,7 @@ curl http://localhost:3000/v1/latest/tx
 Or a more complex one:
 
 ```shell
-curl http://localhost:3000/v1/latest/erc20-transfer/RIF | jq
+curl http://localhost:3000/v1/latest/erc20-transfer/RIF
 ```
 
 ```json
@@ -54,6 +54,24 @@ curl http://localhost:3000/v1/latest/erc20-transfer/RIF | jq
     "amount": 5831.184365932506
   }
 ]
+```
+
+Or an even more complex one:
+
+```shell
+curl "http://localhost:3000/v1/latest/erc20-recipients/RIF?startBlock=3759900&endBlock=3760000"
+```
+
+```json
+{
+  "addresses": [
+    "0x1a7bfd2461e808c2bbe550f9531ae50e176a5cec",
+    "0xac7de98a426f6ff51e1bd6588b41544c8addb2d1",
+    "0xcff3fcaec2352c672c38d77cb1a064b7d50ce7e1"
+  ],
+  "count": 3
+}
+
 ```
 
 ## How to develop
