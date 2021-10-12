@@ -37,6 +37,8 @@ curl http://localhost:3000/v1/latest/tx
 ]
 ```
 
+Or a more complex one:
+
 ```shell
 curl http://localhost:3000/v1/latest/erc20-transfer/RIF | jq
 ```
@@ -69,6 +71,7 @@ it'll restart the server with your latest changes.
 Tips:
 
 - Edit `src/routes/index.js` to add more API endpoints.
+  - Add `src/routes/*-handler.js` - one per new route handler.
 - If you are querying a specific smart contract,
   try out the ["Topic Calculator (SQL)"](https://www.covalenthq.com/docs/tools/topic-calculator-sql),
   which is an SQL codegen tool that can come in handy.
