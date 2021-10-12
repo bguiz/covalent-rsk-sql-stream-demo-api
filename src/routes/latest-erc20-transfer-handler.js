@@ -1,13 +1,9 @@
 const dbPool = require('../db-pool.js');
 const erc20BySymbolMap = require('../data/erc20-tokens.js');
-
-// Transfer(indexed address from, indexed address to, uint256 value)
-const erc20TopicIdForTransfer =
-  '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
-
-function getSqlBytesForHexadecimalString(input) {
-  return '\\x' + input.substring(2);
-}
+const {
+  erc20TopicIdForTransfer,
+  getSqlBytesForHexadecimalString,
+} = require('../data/util.js');
 
 function latestErc20TransferRouteHandler(req, res) {
   const symbol = req.params.symbol;
