@@ -2,6 +2,7 @@ const express = require('express');
 
 const dbPool = require('../db-pool.js');
 const erc20BySymbolMap = require('../data/erc20-tokens.js');
+const latestTxRouteHandler = require('./latest-tx-handler.js');
 
 // Transfer(indexed address from, indexed address to, uint256 value)
 const erc20TopicIdForTransfer =
@@ -13,22 +14,7 @@ function getSqlBytesForHexadecimalString(input) {
 
 const router = express.Router();
 
-router.get('/latest/tx', function(req, res) {
-  const sqlStatement =
-    `SELECT date_trunc('day', txns.signed_at) AS txn_date
-    , '0x' ||encode(txns.hash, 'hex') AS txn_hash
-    , '0x' || encode(txns."from", 'hex') AS from_address
-    , '0x' || encode(txns."to", 'hex') AS to_address
-    FROM chain_rsk_mainnet.block_transactions txns
-    ORDER BY txns.signed_at DESC
-    LIMIT 1;`;
-  dbPool.query(sqlStatement, (error, results) => {
-    if (error) {
-      throw error;
-    }
-    res.status(200).json(results.rows);
-  });
-});
+router.get('/latest/tx', latestTxRouteHandler);
 
 router.get('/latest/erc20-transfer/:symbol', function (req, res) {
   const symbol = req.params.symbol;
